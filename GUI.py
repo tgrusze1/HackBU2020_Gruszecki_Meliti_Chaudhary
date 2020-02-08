@@ -1,4 +1,4 @@
-import tkinter
+from tkinter import *
 import numpy as np
 import cv2
 
@@ -18,6 +18,13 @@ def create_webcam(mirror=False):
         if cv2.waitKey(1) == 27:  # Press escape to exit out of webcam.
             break  # esc to quit
     cv2.destroyAllWindows()
+
+def GUIWindow():
+    m = Tk()
+    m.title("Based Program")
+    m.geometry("1920x1080")
+    m.resizable(width=False, height=False)
+
 
 
 def main():
