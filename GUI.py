@@ -2,7 +2,7 @@ from tkinter import *
 import numpy as np
 import cv2
 from PIL import Image, ImageTk
-from HackBU2020_Gruszecki_Meliti_Chaudhary import get_name
+import get_name
 
 root = Tk()
 root.bind('<Escape>', lambda e: root.quit())
@@ -44,7 +44,7 @@ def GUIWindow(width=1920, height=1080):
 
     name_label = Label(root, text="Name")
     name_label.place(y=850, x=80, relheight=.1, relwidth=.1)
-    name = get_name.get_name
+    name = get_name.get_name()
 
     name_in = Label(root, text=name)  # replace tdogg with function that takes the name
     name_in.place(y=930, x=50, relheight=.15, relwidth=.15)
