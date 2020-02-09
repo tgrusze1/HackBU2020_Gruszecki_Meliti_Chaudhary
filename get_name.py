@@ -1,14 +1,11 @@
 import face_recognition
 import cv2
 
-def get_name():
-    cap = cv2.VideoCapture(0)
-
+def get_name(cap):
     if not cap.isOpened():
         cap.open()
 
     ret, frame = cap.read()
-    cap.release()
 
     tdogg_image = face_recognition.load_image_file("tdogg.jpg")
     tdogg_enc = face_recognition.face_encodings(tdogg_image)[0]
@@ -42,4 +39,3 @@ def get_name():
 
     print(name)
     return name
-get_name()
