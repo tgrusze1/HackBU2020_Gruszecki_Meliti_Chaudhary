@@ -6,11 +6,11 @@ import numpy
 import threading
 import platform
 
-
 # Face_Recognition multiprocessing rewritten from
 # facerec_from_webcam_multiprocessing.py
 # in the Face_Recognition library
 
+v_capture = cv2.VideoCapture(0)
 
 def next_id(c_id, w_num):
     return 1 if c_id == w_num else c_id + 1
@@ -21,7 +21,6 @@ def prev_id(c_id, w_num):
 
 
 def capture(read_frame_list, Global, w_num):
-    v_capture = cv2.VideoCapture(0)
     #print the dimensions
     print("w: %d, h %d, FPS: %d" % (v_capture.get(3), v_capture.get(4), v_capture.get(5)))
 
@@ -32,8 +31,6 @@ def capture(read_frame_list, Global, w_num):
             Global.buff_num = next_id(Global.buff_num, w_num)
         else:
             time.sleep(0.01)
-
-    v_capture.release()
 
 
 def process(w_id, read_frame_list, write_frame_list, Global, w_num):
@@ -74,8 +71,8 @@ def process(w_id, read_frame_list, write_frame_list, Global, w_num):
                 name = known_face_names[first_match_index]
 
             #draw rec and name
-            cv2.rectangle(frame_proc, (left, bot + 30), (right, bot), (0,0,0), cv2.FILLED)
-            cv2.putText(frame_proc, name, (left + 6, bot - 6), cv2.FONT_HERSHEY_PLAIN, 1.0, (255, 255, 255), 1)
+            cv2.rectangle(frame_proc, (left, top - 30), (right, top), (0,0,0), cv2.FILLED)
+            cv2.putText(frame_proc, name, (left + 6, top - 15), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 255), 1)
 
         #wait before writing
         while Global.write_num != w_id:
@@ -177,5 +174,8 @@ def realtime_facial_recognize():
             Global.exited = True
             break
     time.sleep(0.01)
+    v_capture.release()
     cv2.destroyAllWindows()
 
+if __name__ == '__main__':
+    realtime_facial_recognize()
