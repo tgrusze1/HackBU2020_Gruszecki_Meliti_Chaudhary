@@ -60,6 +60,8 @@ def process(w_id, read_frame_list, write_frame_list, Global, w_num):
         face_loc = face_recognition.face_locations(rgb_frame)
         face_enc = face_recognition.face_encodings(rgb_frame, face_loc)
 
+        #colors = detect_body.detect_body(frame_proc)
+
         #iterate through the faces
         for(top, right, bot, left), face_enc in zip(face_loc, face_enc):
             matches = face_recognition.compare_faces(known_face_enc, face_enc)
@@ -70,9 +72,10 @@ def process(w_id, read_frame_list, write_frame_list, Global, w_num):
                 first_match_index = matches.index(True)
                 name = known_face_names[first_match_index]
 
-            #draw rec and name
-            cv2.rectangle(frame_proc, (left, top - 30), (right, top), (0,0,0), cv2.FILLED)
+            #minecraft
             cv2.putText(frame_proc, name, (left + 6, top - 15), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 255), 1)
+            #cv2.putText(frame_proc, colors[1], (left + 6, top - 25), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 255), 1)
+            #cv2.putText(frame_proc, colors[2], (left + 6, top - 35), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 255), 1)
 
         #wait before writing
         while Global.write_num != w_id:

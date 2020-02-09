@@ -3,35 +3,34 @@ from PIL import Image
 import numpy
 import webcolors
 
-def detect_body():
+def detect_body(img):
+    #i don't even want to comment this but it basically
+    #uses someone elses cooler code to find bod sections
     body_cascade = cv2.CascadeClassifier('haarcascade_fullbody.xml')
     upper_cascade = cv2.CascadeClassifier('haarcascade_upperbody.xml')
     lower_cascade = cv2.CascadeClassifier('haarcascade_lowerbody.xml')
 
-    img = cv2.imread('image1.jpg', cv2.IMREAD_COLOR)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-    upper = upper_cascade.detectMultiScale(gray, 1, 3)
-    lower = lower_cascade.detectMultiScale(gray, 1, 3)
+    bodies = body_cascade.detectMultiScale(gray, 1.05, 4)
+    upper = upper_cascade.detectMultiScale(gray, 1.05, 4)
+    lower = lower_cascade.detectMultiScale(gray, 1.05, 4)
+    dcolors = [None,None,None]
+
 
     for (x, y, w, h) in bodies:
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
-        color_find(img[y:y + h, x:x + w])
-        cv2.imshow('upper_img', img[y:y + h, x:x + w])
+        dcolors[0] = color_find(img[y:y + h, x:x + w])
 
     for (x,y,w,h) in upper:
         cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
-        color_find(img[y:y + h, x:x + w])
-        cv2.imshow('upper_img', img[y:y + h, x:x + w])
+        dcolors[1] = color_find(img[y:y + h, x:x + w])
 
     for (x,y,w,h) in lower:
         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
-        color_find(img[y:y + h, x:x + w])
-        cv2.imshow('lower_img', img[y:y + h, x:x + w])
+        dcolors[2] = color_find(img[y:y + h, x:x + w])
 
-    cv2.imshow('img',img)
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
+    return dcolors
 
 def closest_colour(requested_colour):
     min_colours = {}
@@ -52,8 +51,6 @@ def color_find(img):
     _, counts = numpy.unique(labels, return_counts=True)
 
     color = closest_colour(palette[numpy.argmax(counts)])
-    print(color)
+    return color
 
-
-
-detect_body()
+print(detect_body(cv2.imread('image0.jpg', cv2.IMREAD_COLOR)))
