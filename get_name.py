@@ -1,14 +1,7 @@
 import face_recognition
 import cv2
 
-<<<<<<< HEAD
-def get_name():
-    #open video stream
-    cap = cv2.VideoCapture(0)
-
-=======
 def get_name(cap):
->>>>>>> ad2c45ea8004052711f79c58f732fc7798470368
     if not cap.isOpened():
         cap.open()
 
