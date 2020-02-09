@@ -2,7 +2,7 @@ from tkinter import *
 import numpy as np
 import cv2
 from PIL import Image, ImageTk
-import get_name
+from HackBU2020_Gruszecki_Meliti_Chaudhary import get_name
 
 root = Tk()
 root.bind('<Escape>', lambda e: root.quit())
@@ -16,9 +16,15 @@ if not vid.isOpened():
 
 
 def activate_button():
+<<<<<<< HEAD
     name = get_name.get_name()
     name_label = Label(root, text = name)
     name_label.place(y=850, x=80, relheight=.1, relwidth=.1)
+=======
+    name = get_name.get_name(vid)
+    name_in = Label(root, text=name)  # replace tdogg with function that takes the name
+    name_in.place(y=930, x=50, relheight=.15, relwidth=.15)
+>>>>>>> ad2c45ea8004052711f79c58f732fc7798470368
 
 
 def get_frame():
@@ -41,7 +47,7 @@ def GUIWindow(width=1920, height=1080):
     root.resizable(width=False, height=False)
     root["bg"] = 'pink'
 
-    actbutton = Button(root, text="Activate", bg='green', command=activate_button())  # add command =  whatever it needs to do
+    actbutton = Button(root, text="Activate", bg='green', command=activate_button)  # add command =  whatever it needs to do
     actbutton.place(relx=0, rely=0, relheight=.1, relwidth=.1, anchor=NW)
     debutton = Button(root, text="Deactivate", bg='red')  # add command =  whatever it needs to do
     debutton.place(relx=0, y=100, relheight=.1, relwidth=.1, anchor=NW)

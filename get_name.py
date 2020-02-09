@@ -1,16 +1,19 @@
 import face_recognition
 import cv2
 
+<<<<<<< HEAD
 def get_name():
     #open video stream
     cap = cv2.VideoCapture(0)
 
+=======
+def get_name(cap):
+>>>>>>> ad2c45ea8004052711f79c58f732fc7798470368
     if not cap.isOpened():
         cap.open()
 
     #get frame, close it
     ret, frame = cap.read()
-    cap.release()
 
     #load the hot men
     tdogg_image = face_recognition.load_image_file("tdogg.jpg")
@@ -49,4 +52,3 @@ def get_name():
     #first match
     print(name)
     return name
-get_name()
