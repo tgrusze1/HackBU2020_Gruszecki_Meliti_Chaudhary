@@ -61,6 +61,8 @@ def GUIWindow(width=1920, height=1080):
     actbutton.place(relx=0, rely=0, relheight=.1, relwidth=.1, anchor=NW)
     actclothing_button = Button(root, text="Activate Clothing", bg='green', command=activateclothing_button)  # add command =  whatever it needs to do
     actclothing_button.place(relx=0, y=100, relheight=.1, relwidth=.1, anchor=NW)
+    register_button = Button(root, text="Register New Person", bg='green')
+    register_button.place(relx=0, y=200, relheight=.1, relwidth=.1, anchor=NW)
 
     name_label = Label(root, text="Name")
     name_label.place(y=850, x=80, relheight=.1, relwidth=.1)
