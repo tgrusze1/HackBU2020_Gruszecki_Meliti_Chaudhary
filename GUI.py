@@ -2,6 +2,7 @@ from tkinter import *
 import numpy as np
 import cv2
 from PIL import Image, ImageTk
+from HackBU2020_Gruszecki_Meliti_Chaudhary import get_name
 
 root = Tk()
 root.bind('<Escape>', lambda e: root.quit())
@@ -23,23 +24,29 @@ def get_frame():
     current_frame = ImageTk.PhotoImage(image=img)
     lmain.imagetk = current_frame
     lmain.configure(image=current_frame)
-    lmain.after(100, get_frame)
+    lmain.after(1, get_frame)
 
 
 def GUIWindow(width=1920, height=1080):
     root.title("Based Program")
     root.geometry(str(width) + "x" + str(height))
     root.resizable(width=False, height=False)
+    root["bg"] = 'pink'
 
-    actbutton = Button(root, text="Activate", bg='green')  # add command =  whatever it needs to do
+    scrollbar = Scrollbar(root)
+    scrollbar.pack(side=RIGHT, fill=Y)
+    a_list = Listbox(root, yscrollcommand=scrollbar.set)
+
+    actbutton = Button(root, text="Activate", bg='green') # add command =  whatever it needs to do
     actbutton.place(relx=0, rely=0, relheight=.1, relwidth=.1, anchor=NW)
     debutton = Button(root, text="Deactivate", bg='red')  # add command =  whatever it needs to do
     debutton.place(relx=0, y=100, relheight=.1, relwidth=.1, anchor=NW)
 
-    name = Label(root, text="Name")
-    name.place(y=850, x=80, relheight=.1, relwidth=.1)
+    name_label = Label(root, text="Name")
+    name_label.place(y=850, x=80, relheight=.1, relwidth=.1)
+    name = get_name.get_name
 
-    name_in = Label(root, text="Thomas Gruszecki")  # replace tdogg with function that takes the name
+    name_in = Label(root, text=name)  # replace tdogg with function that takes the name
     name_in.place(y=930, x=50, relheight=.15, relwidth=.15)
 
     top = Label(root, text="Top")
