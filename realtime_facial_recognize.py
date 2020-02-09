@@ -22,7 +22,7 @@ def prev_id(c_id, w_num):
 
 def capture(read_frame_list, Global, w_num):
     #print the dimensions
-    print("w: %d, h %d, FPS: %d" % (v_capture.get(3), v_capture.get(4), v_capture.get(5)))
+    #print("w: %d, h %d, FPS: %d" % (v_capture.get(3), v_capture.get(4), v_capture.get(5)))
 
     while not Global.exited:
         if Global.buff_num != next_id(Global.read_num, w_num):
@@ -73,7 +73,8 @@ def process(w_id, read_frame_list, write_frame_list, Global, w_num):
                 name = known_face_names[first_match_index]
 
             #minecraft
-            cv2.putText(frame_proc, name, (left + 6, top - 15), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 255), 1)
+            cv2.rectangle(frame_proc, (left, top - 10), (right, top-30), (0,0,0), -1)
+            cv2.putText(frame_proc, name, (left, top - 15), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 255), 1)
             #cv2.putText(frame_proc, colors[1], (left + 6, top - 25), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 255), 1)
             #cv2.putText(frame_proc, colors[2], (left + 6, top - 35), cv2.FONT_HERSHEY_PLAIN, 1.0, (0, 0, 255), 1)
 
@@ -90,7 +91,7 @@ def realtime_facial_recognize():
     if platform.system() == 'Darwin':
         set_start_method('forkserver')
 
-    print("Declaring Globals")
+    #print("Declaring Globals")
     #Globals
     Global = Manager().Namespace()
     Global.buff_num = 1
@@ -110,10 +111,10 @@ def realtime_facial_recognize():
     #list of subprocesses
     p = []
 
-    print("Appending Thread Capture")
+    #print("Appending Thread Capture")
     p.append(threading.Thread(target=capture, args = (read_frame_list, Global, w_num)))
     p[0].start()
-    print("Appended")
+    #print("Appended")
 
     tdogg_image = face_recognition.load_image_file("tdogg.jpg")
     tdogg_enc = face_recognition.face_encodings(tdogg_image)[0]
@@ -169,7 +170,7 @@ def realtime_facial_recognize():
             else:
                 Global.frame_delay = 0
 
-            print("Loading Video")
+            #print("Loading Video")
             #finally, display the result
             cv2.imshow('Video', write_frame_list[prev_id(Global.write_num, w_num)])
 
@@ -179,6 +180,7 @@ def realtime_facial_recognize():
     time.sleep(0.01)
     v_capture.release()
     cv2.destroyAllWindows()
+
 
 if __name__ == '__main__':
     realtime_facial_recognize()
