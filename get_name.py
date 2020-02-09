@@ -27,11 +27,12 @@ def get_name():
     face_loc = face_recognition.face_locations(rgb_frame)
     face_enc = face_recognition.face_encodings(rgb_frame, face_loc)
 
+    matches = None
     for (top, right, bottom, left), enc in zip(face_loc, face_enc):
         matches = face_recognition.compare_faces(known_face_enc, enc)
 
     name = "Unknown"
-    if True in matches:
+    if matches != None and True in matches:
         name = known_face[matches.index(True)]
 
     print(name)
