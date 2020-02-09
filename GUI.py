@@ -72,7 +72,7 @@ def GUIWindow(width=1920, height=1080):
     enter_name.place(y=865, x=745 + 300, relheight=.07, relwidth=.07)
 
     entry = Entry(root)
-    entry.place(y=500, x=750 + 300, relheight=.07, relwidth=.07)
+    entry.place(y=965, x=750 + 300, relheight=.07, relwidth=.07)
 
     def register_button():
         return_name = entry.get()
