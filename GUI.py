@@ -7,7 +7,7 @@ root = Tk()
 root.bind('<Escape>', lambda e: root.quit())
 lmain = Label(root)
 lmain.pack()
-  # Creates video object
+
 def get_frame():
     """
     Gets current frame.
@@ -25,7 +25,7 @@ def get_frame():
     current_frame = ImageTk.PhotoImage(image=img)
     lmain.imagetk = current_frame
     lmain.configure(image=current_frame)
-    lmain.after(10, get_frame)
+    lmain.after(100, get_frame)
 
 
 def GUIWindow(width=1920, height=1080):
@@ -33,15 +33,10 @@ def GUIWindow(width=1920, height=1080):
     root.geometry(str(width) + "x" + str(height))
     root.resizable(width=False, height=False)
 
-    current_frame = get_frame()
-
-    webcam = Canvas(root, height=800, width=800)
-    webcam.create_image(0, 0, image=current_frame, anchor=NW)
-
     actbutton = Button(root, text="Activate", bg='green')  # add command =  whatever it needs to do
-    actbutton.place(relx=1, rely=0, relheight=.1, relwidth=.1, anchor=NE)
+    actbutton.place(relx=0, rely=0, relheight=.1, relwidth=.1, anchor=NW)
     debutton = Button(root, text="Deactivate", bg='red')  # add command =  whatever it needs to do
-    debutton.place(relx=1, y=100, relheight=.1, relwidth=.1, anchor=NE)
+    debutton.place(relx=0, y=100, relheight=.1, relwidth=.1, anchor=NW)
 
     name = Label(root, text="Name")
     name.place(y=850, x=80, relheight=.1, relwidth=.1)
@@ -67,5 +62,6 @@ def GUIWindow(width=1920, height=1080):
     shoe_in = Label(root, text="Sneakers")  # replace shirt with function that takes the shoe
     shoe_in.place(y=975, x=750 + 300, relheight=.07, relwidth=.07)
 
+GUIWindow()
 get_frame()
 root.mainloop()
