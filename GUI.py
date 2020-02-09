@@ -1,65 +1,71 @@
 from tkinter import *
 import numpy as np
 import cv2
+from PIL import Image, ImageTk
 
-
-def create_webcam(mirror=False):
+root = Tk()
+root.bind('<Escape>', lambda e: root.quit())
+lmain = Label(root)
+lmain.pack()
+  # Creates video object
+def get_frame():
     """
-    Opens camera.
+    Gets current frame.
     """
-    vid = cv2.VideoCapture(0)  # Creates video object
-    while True:
-        ret_val, img = vid.read()  # Returns next frame
-        if mirror:  # Mirrors direction of movement in webcam
-            img = cv2.flip(img, 1)
-        cv2.imshow('my webcam', img)  # Opens webcam
-        if cv2.waitKey(1) == 27:  # Press escape to exit out of webcam.
-            break  # esc to quit
-    cv2.destroyAllWindows()
+    vid = cv2.VideoCapture(0)
+    vid.set(cv2.CAP_PROP_FRAME_WIDTH, 800)
+    vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 800)
+    if not vid.isOpened():
+        vid.open()
+    ret_val, frame = vid.read()  # Returns next frame
+    vid.release()
+    frame = cv2.flip(frame,1)
+    cv2img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
+    img = Image.fromarray(cv2img)
+    current_frame = ImageTk.PhotoImage(image=img)
+    lmain.imagetk = current_frame
+    lmain.configure(image=current_frame)
+    lmain.after(10, get_frame)
 
 
 def GUIWindow(width=1920, height=1080):
-    m = Tk()
-    m.title("Based Program")
-    m.geometry(str(width) + "x" + str(height))
-    m.resizable(width=False, height=False)
+    root.title("Based Program")
+    root.geometry(str(width) + "x" + str(height))
+    root.resizable(width=False, height=False)
 
-    actbutton = Button(m, text="Activate", bg='green')  # add command =  whatever it needs to do
+    current_frame = get_frame()
+
+    webcam = Canvas(root, height=800, width=800)
+    webcam.create_image(0, 0, image=current_frame, anchor=NW)
+
+    actbutton = Button(root, text="Activate", bg='green')  # add command =  whatever it needs to do
     actbutton.place(relx=1, rely=0, relheight=.1, relwidth=.1, anchor=NE)
-    debutton = Button(m, text="Deactivate", bg='red')  # add command =  whatever it needs to do
+    debutton = Button(root, text="Deactivate", bg='red')  # add command =  whatever it needs to do
     debutton.place(relx=1, y=100, relheight=.1, relwidth=.1, anchor=NE)
 
-    name = Label(m, text="Name")
+    name = Label(root, text="Name")
     name.place(y=850, x=80, relheight=.1, relwidth=.1)
 
-    name_in = Label(m, text="Thomas Gruszecki")  # replace tdogg with function that takes the name
+    name_in = Label(root, text="Thomas Gruszecki")  # replace tdogg with function that takes the name
     name_in.place(y=930, x=50, relheight=.15, relwidth=.15)
 
-    top = Label(m, text="Top")
+    top = Label(root, text="Top")
     top.place(y=865, x=345 + 100, relheight=.07, relwidth=.07)
 
-    top = Label(m, text="Shirt")  # replace shirt with function that takes the top article
+    top = Label(root, text="Shirt")  # replace shirt with function that takes the top article
     top.place(y=975, x=350 + 100, relheight=.07, relwidth=.07)
 
-    bot = Label(m, text="Bottom")
+    bot = Label(root, text="Bottom")
     bot.place(y=865, x=545 + 200, relheight=.07, relwidth=.07)
 
-    bot_in = Label(m, text="Pants")  # replace shirt with function that takes the bottom article
+    bot_in = Label(root, text="Pants")  # replace shirt with function that takes the bottom article
     bot_in.place(y=975, x=550 + 200, relheight=.07, relwidth=.07)
 
-    shoe = Label(m, text="Footwear")
+    shoe = Label(root, text="Footwear")
     shoe.place(y=865, x=745 + 300, relheight=.07, relwidth=.07)
 
-    shoe_in = Label(m, text="Sneakers")  # replace shirt with function that takes the shoe
+    shoe_in = Label(root, text="Sneakers")  # replace shirt with function that takes the shoe
     shoe_in.place(y=975, x=750 + 300, relheight=.07, relwidth=.07)
 
-
-    m.mainloop()
-
-
-def main():
-    # create_webcam(mirror=True)
-    GUIWindow(1920, 1080)
-
-
-main()
+get_frame()
+root.mainloop()
