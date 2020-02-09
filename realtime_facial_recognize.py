@@ -83,6 +83,7 @@ def process(w_id, read_frame_list, write_frame_list, Global, w_num):
         write_frame_list[w_id] = frame_proc
         Global.write_num = next_id(Global.write_num, w_num)
 
+
 def realtime_facial_recognize():
     #Apparently this fixes something on macOS? I'm not sure why
     #but the Face Recognition source code knows more than I do.
