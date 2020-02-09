@@ -49,7 +49,7 @@ def get_name(cap):
 def add_name(cap, name):
     ret, frame = cap.read()
     rgb_frame = frame[:, :, ::-1]
-    new_image = face_recognition.load_image_file()
-    new_enc = face_recognition.face_encodings(tdogg_image)[0]
-    known_face_enc.append(new_enc)
+    face_loc = face_recognition.face_locations(rgb_frame)
+    face_enc = face_recognition.face_encodings(rgb_frame, face_loc)[0]
+    known_face_enc.append(face_enc)
     known_face.append(name)

@@ -34,9 +34,6 @@ def activateclothing_button():
     bot_in.place(y=975, x=550 + 200, relheight=.07, relwidth=.07)
 
 
-
-
-
 def get_frame():
     """
     Gets current frame.
@@ -61,8 +58,6 @@ def GUIWindow(width=1920, height=1080):
     actbutton.place(relx=0, rely=0, relheight=.1, relwidth=.1, anchor=NW)
     actclothing_button = Button(root, text="Activate Clothing", bg='green', command=activateclothing_button)  # add command =  whatever it needs to do
     actclothing_button.place(relx=0, y=100, relheight=.1, relwidth=.1, anchor=NW)
-    register_button = Button(root, text="Register New Person", bg='green')
-    register_button.place(relx=0, y=200, relheight=.1, relwidth=.1, anchor=NW)
 
     name_label = Label(root, text="Name")
     name_label.place(y=850, x=80, relheight=.1, relwidth=.1)
@@ -73,12 +68,18 @@ def GUIWindow(width=1920, height=1080):
     bot = Label(root, text="Bottom")
     bot.place(y=865, x=545 + 200, relheight=.07, relwidth=.07)
 
-    shoe = Label(root, text="Footwear")
-    shoe.place(y=865, x=745 + 300, relheight=.07, relwidth=.07)
+    enter_name = Label(root, text="Enter Name")
+    enter_name.place(y=865, x=745 + 300, relheight=.07, relwidth=.07)
 
-    shoe_in = Label(root, text="Sneakers")  # replace shirt with function that takes the shoe
-    shoe_in.place(y=975, x=750 + 300, relheight=.07, relwidth=.07)
+    entry = Entry(root)  # replace shirt with function that takes the shoe
+    entry.place(y=500, x=750 + 300, relheight=.07, relwidth=.07)
+    return_name = entry.get()
 
+    def register_button():
+        get_name.add_name(vid, return_name)
+
+    register_button = Button(root, text="Register New Person", bg='green', command=register_button)
+    register_button.place(relx=0, y=200, relheight=.1, relwidth=.1, anchor=NW)
 
 def on_closing():
     vid.release()
