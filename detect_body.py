@@ -19,15 +19,15 @@ def detect_body(img):
 
 
     for (x, y, w, h) in bodies:
-        cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
+        #cv2.rectangle(img, (x, y), (x + w, y + h), (0, 0, 255), 2)
         dcolors[0] = color_find(img[y:y + h, x:x + w])
 
     for (x,y,w,h) in upper:
-        cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
+        #cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)
         dcolors[1] = color_find(img[y:y + h, x:x + w])
 
     for (x,y,w,h) in lower:
-        cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
+        #cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
         dcolors[2] = color_find(img[y:y + h, x:x + w])
 
     return dcolors
@@ -52,5 +52,3 @@ def color_find(img):
 
     color = closest_colour(palette[numpy.argmax(counts)])
     return color
-
-print(detect_body(cv2.imread('image0.jpg', cv2.IMREAD_COLOR)))

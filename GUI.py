@@ -2,8 +2,8 @@ from tkinter import *
 import numpy as np
 import cv2
 from PIL import Image, ImageTk
-from HackBU2020_Gruszecki_Meliti_Chaudhary import get_name
-from HackBU2020_Gruszecki_Meliti_Chaudhary import detect_body
+import get_name
+import detect_body
 
 root = Tk()
 root.bind('<Escape>', lambda e: root.quit())
