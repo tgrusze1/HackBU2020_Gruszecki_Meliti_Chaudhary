@@ -71,15 +71,16 @@ def GUIWindow(width=1920, height=1080):
     enter_name = Label(root, text="Enter Name")
     enter_name.place(y=865, x=745 + 300, relheight=.07, relwidth=.07)
 
-    entry = Entry(root)  # replace shirt with function that takes the shoe
+    entry = Entry(root)
     entry.place(y=500, x=750 + 300, relheight=.07, relwidth=.07)
-    return_name = entry.get()
 
     def register_button():
+        return_name = entry.get()
         get_name.add_name(vid, return_name)
 
     register_button = Button(root, text="Register New Person", bg='green', command=register_button)
     register_button.place(relx=0, y=200, relheight=.1, relwidth=.1, anchor=NW)
+
 
 def on_closing():
     vid.release()

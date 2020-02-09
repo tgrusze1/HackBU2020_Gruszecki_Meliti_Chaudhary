@@ -2,20 +2,20 @@ import face_recognition
 import cv2
 
 #load the default hot men
-tdogg_image = face_recognition.load_image_file("tdogg.jpg")
-tdogg_enc = face_recognition.face_encodings(tdogg_image)[0]
+#tdogg_image = face_recognition.load_image_file("tdogg.jpg")
+#tdogg_enc = face_recognition.face_encodings(tdogg_image)[0]
 aryan_image = face_recognition.load_image_file("aryan.jpg")
 aryan_enc = face_recognition.face_encodings(aryan_image)[0]
 ryan_image = face_recognition.load_image_file("ryan.jpg")
 ryan_enc = face_recognition.face_encodings(ryan_image)[0]
 
 known_face_enc = [
-    tdogg_enc,
+    #tdogg_enc,
     aryan_enc,
     ryan_enc
 ]
 known_face = [
-    "T-Dogg",
+    #"T-Dogg",
     "Aryan Chaudhary",
     "Ryan Meliti"
 ]
