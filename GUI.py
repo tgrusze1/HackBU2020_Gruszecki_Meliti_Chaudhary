@@ -13,12 +13,20 @@ vid.set(cv2.CAP_PROP_FRAME_WIDTH, 800)
 vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 800)
 if not vid.isOpened():
     vid.open()
+
+
+def activate_button():
+    name = get_name.get_name()
+    name_in = Label(root, text=name)  # replace tdogg with function that takes the name
+    name_in.place(y=930, x=50, relheight=.15, relwidth=.15)
+
+
 def get_frame():
     """
     Gets current frame.
     """
     ret_val, frame = vid.read()  # Returns next frame
-    frame = cv2.flip(frame,1)
+    frame = cv2.flip(frame, 1)
     cv2img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
     img = Image.fromarray(cv2img)
     current_frame = ImageTk.PhotoImage(image=img)
@@ -33,21 +41,13 @@ def GUIWindow(width=1920, height=1080):
     root.resizable(width=False, height=False)
     root["bg"] = 'pink'
 
-    scrollbar = Scrollbar(root)
-    scrollbar.pack(side=RIGHT, fill=Y)
-    a_list = Listbox(root, yscrollcommand=scrollbar.set)
-
-    actbutton = Button(root, text="Activate", bg='green') # add command =  whatever it needs to do
+    actbutton = Button(root, text="Activate", bg='green', command=activate_button())  # add command =  whatever it needs to do
     actbutton.place(relx=0, rely=0, relheight=.1, relwidth=.1, anchor=NW)
     debutton = Button(root, text="Deactivate", bg='red')  # add command =  whatever it needs to do
     debutton.place(relx=0, y=100, relheight=.1, relwidth=.1, anchor=NW)
 
     name_label = Label(root, text="Name")
     name_label.place(y=850, x=80, relheight=.1, relwidth=.1)
-    name = get_name.get_name()
-
-    name_in = Label(root, text=name)  # replace tdogg with function that takes the name
-    name_in.place(y=930, x=50, relheight=.15, relwidth=.15)
 
     top = Label(root, text="Top")
     top.place(y=865, x=345 + 100, relheight=.07, relwidth=.07)
