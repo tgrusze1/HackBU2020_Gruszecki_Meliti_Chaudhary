@@ -7,18 +7,16 @@ root = Tk()
 root.bind('<Escape>', lambda e: root.quit())
 lmain = Label(root)
 lmain.pack()
-
+vid = cv2.VideoCapture(0)
+vid.set(cv2.CAP_PROP_FRAME_WIDTH, 800)
+vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 800)
+if not vid.isOpened():
+    vid.open()
 def get_frame():
     """
     Gets current frame.
     """
-    vid = cv2.VideoCapture(0)
-    vid.set(cv2.CAP_PROP_FRAME_WIDTH, 800)
-    vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 800)
-    if not vid.isOpened():
-        vid.open()
     ret_val, frame = vid.read()  # Returns next frame
-    vid.release()
     frame = cv2.flip(frame,1)
     cv2img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
     img = Image.fromarray(cv2img)
@@ -62,6 +60,13 @@ def GUIWindow(width=1920, height=1080):
     shoe_in = Label(root, text="Sneakers")  # replace shirt with function that takes the shoe
     shoe_in.place(y=975, x=750 + 300, relheight=.07, relwidth=.07)
 
+
+def on_closing():
+    vid.release()
+    root.destroy()
+
+
 GUIWindow()
 get_frame()
+root.protocol("WM_DELETE_WINDOW", on_closing)
 root.mainloop()
